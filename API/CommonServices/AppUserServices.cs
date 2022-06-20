@@ -13,7 +13,7 @@ namespace API.CommonServices
         }
         public  async Task<bool> UserExists(string username)
         {
-            return await _context.Users.AnyAsync(x => x.Username == username.ToLower());
+            return await _context.Users.AnyAsync(x => x.UserName == username.ToLower());
 
         }
     }
