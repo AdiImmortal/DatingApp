@@ -24,8 +24,8 @@ namespace API.Controllers
         }
 
 
-        [AllowAnonymous]
-        //[Authorize]
+        // [AllowAnonymous]
+        [Authorize]
         [Route("GetUsers")]
         [HttpGet]
 
@@ -36,16 +36,16 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        //[Authorize]
-        [AllowAnonymous]
-        [Route("username")]
-       
+        [Authorize]
+        //[AllowAnonymous]
+        [Route("GetUser/{username}")]
+
 
         public async Task<ActionResult<MemberDTO>> GetUser(string username)
         {
             return await _userRepository.GetMemberAsync(username);
 
-            
+
         }
     }
 }
