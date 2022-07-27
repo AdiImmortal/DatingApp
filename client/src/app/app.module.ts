@@ -23,6 +23,7 @@ import { NotfoundComponent } from './errors/notfound/notfound.component';
 import { ServerErrorComponent } from './errors/server-error/server-error.component';
 import { MemberCardComponent } from './members/member-card/member-card.component';
 import { JwtInterceptor } from './_interceptor/jwt.interceptor';
+import { MemberEditComponent } from './members/member-edit/member-edit.component';
 
 
 
@@ -42,6 +43,7 @@ import { JwtInterceptor } from './_interceptor/jwt.interceptor';
     NotfoundComponent,
     ServerErrorComponent,
     MemberCardComponent,
+    MemberEditComponent,
     
     
   ],

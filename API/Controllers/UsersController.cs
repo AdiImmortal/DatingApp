@@ -1,4 +1,5 @@
 using System;
+using System.Security.Claims;
 using API.Data;
 using API.DTOs;
 using API.Entities;
@@ -24,11 +25,10 @@ namespace API.Controllers
         }
 
 
-        // [AllowAnonymous]
+        
         [Authorize]
         [Route("GetUsers")]
         [HttpGet]
-
         public async Task<ActionResult<IEnumerable<MemberDTO>>> GetUsers()
         {
             var user = await _userRepository.GetMembersAsync();
@@ -37,15 +37,30 @@ namespace API.Controllers
 
         [HttpGet]
         [Authorize]
-        //[AllowAnonymous]
         [Route("GetUser/{username}")]
-
-
         public async Task<ActionResult<MemberDTO>> GetUser(string username)
         {
             return await _userRepository.GetMemberAsync(username);
 
 
         }
+
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateUser(MemberUpdateDTO memberUpdateDTO)
+        {
+            var userName = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+            var user = await _userRepository.GetUserByNameAsync(userName);
+            _mapper.Map(memberUpdateDTO,user);
+            _userRepository.Update(user);
+
+            if(await _userRepository.SaveAllAsync()) return NoContent();
+
+            return BadRequest("Updation Failed");
+
+
+        }
+
     }
 }
